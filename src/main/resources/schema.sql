@@ -51,5 +51,23 @@ CREATE TABLE rental
     FOREIGN KEY (movie_id) REFERENCES movie (movie_id)
 );
 
+DROP TABLE IF EXISTS `order`;
+
+CREATE TABLE `order`
+(
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    address  VARCHAR(255)
+);
+
+DROP TABLE IF EXISTS order_item;
+
+CREATE TABLE order_item
+(
+    order_id INT PRIMARY KEY,
+    quantity INT,
+    product  VARCHAR(255),
+    FOREIGN KEY (order_id) REFERENCES `order` (order_id)
+);
+
 SET
 FOREIGN_KEY_CHECKS = 1;

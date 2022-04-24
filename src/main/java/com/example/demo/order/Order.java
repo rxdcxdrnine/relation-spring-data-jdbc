@@ -20,7 +20,12 @@ public class Order {
     private final String address;
 
     @MappedCollection(idColumn = "order_id")
-    private final Set<OrderItem> items = new HashSet<>();
+    private Set<OrderItem> items = new HashSet<>();
+
+    // Spring Data JDBC 의 프로퍼티 접근 시 사용
+    private void setItems(Set<OrderItem> items) {
+        this.items = items;
+    }
 
     public void addItem(OrderItem orderItem) {
         items.add(orderItem);

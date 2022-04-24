@@ -2,9 +2,13 @@ package com.example.demo;
 
 import com.example.demo.author.Author;
 import com.example.demo.author.AuthorRepository;
+import com.example.demo.book.AuthorRef;
 import com.example.demo.book.Book;
 import com.example.demo.book.BookRepository;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
@@ -30,7 +34,7 @@ public class ManyToManyTest {
         authorRepository.save(author);
 
         Book book = new Book("Refactoring");
-        book.addAuthor(author);
+        book.addAuthorRef(author);
         bookRepository.save(book);
 
         List<Book> findBooks = bookRepository.findAll();
@@ -42,6 +46,19 @@ public class ManyToManyTest {
         for (Author findAuthor : findAuthors) {
             System.out.println(bookRepository.findByAuthorId(findAuthor.getId()));
         }
+
+        // many-to-many 연관관계 매핑
+        Map<Integer, Author> authorMap = findAuthors.stream()
+            .collect(Collectors.toMap(Author::getId, Function.identity()));
+
+        for (Book findBook: findBooks) {
+            List<Author> authors = findBook.getAuthorRefs().stream()
+                .map(AuthorRef::getAuthorId)
+                .map(authorMap::get)
+                .collect(Collectors.toList());
+            findBook.setAuthors(authors);
+        }
+        System.out.println(findBooks);
     }
 
 }

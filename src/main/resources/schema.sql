@@ -1,6 +1,7 @@
 -- DDL for MySQL
 
-SET FOREIGN_KEY_CHECKS = 0;
+SET
+FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS author;
 
@@ -31,4 +32,24 @@ CREATE TABLE book_author
     FOREIGN KEY (book_id) REFERENCES book (book_id)
 );
 
-SET FOREIGN_KEY_CHECKS = 1;
+DROP TABLE IF EXISTS movie;
+
+CREATE TABLE movie
+(
+    movie_id    INT AUTO_INCREMENT PRIMARY KEY,
+    title       VARCHAR(255),
+    description VARCHAR(255)
+);
+
+DROP TABLE IF EXISTS rental;
+
+CREATE TABLE rental
+(
+    movie_id INT PRIMARY KEY,
+    duration VARCHAR(255),
+    price    INT,
+    FOREIGN KEY (movie_id) REFERENCES movie (movie_id)
+);
+
+SET
+FOREIGN_KEY_CHECKS = 1;

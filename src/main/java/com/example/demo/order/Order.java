@@ -19,6 +19,11 @@ public class Order {
     private Integer id;
     private final String address;
 
+    public Order(Integer id, String address) {
+        this.id = id;
+        this.address = address;
+    }
+
     @MappedCollection(idColumn = "order_id")
     private Set<OrderItem> items = new HashSet<>();
 

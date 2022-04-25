@@ -63,9 +63,10 @@ DROP TABLE IF EXISTS order_item;
 
 CREATE TABLE order_item
 (
-    order_id INT PRIMARY KEY,
+    order_id INT,
     quantity INT,
     product  VARCHAR(255),
+    PRIMARY KEY (order_id, product),
     FOREIGN KEY (order_id) REFERENCES `order` (order_id)
 );
 

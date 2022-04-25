@@ -3,21 +3,25 @@ package com.example.demo.order;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 @ToString
 public class Order {
 
     @Id
     @Column("order_id")
     private Integer id;
-    private final String address;
+    private String address;
+
+    public Order(String address) {
+        this(null, address);
+    }
 
     public Order(Integer id, String address) {
         this.id = id;

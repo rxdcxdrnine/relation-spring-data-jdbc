@@ -1,21 +1,25 @@
 package com.example.demo.order;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 @ToString
 public class OrderItem {
 
     @Id
     private Integer orderId;
-    private final int quantity;
-    private final String product;
+    private int quantity;
+    private String product;
+
+    public OrderItem(int quantity, String product) {
+        this(null, quantity, product);
+    }
 
     public OrderItem(Integer orderId, int quantity, String product) {
         this.orderId = orderId;
